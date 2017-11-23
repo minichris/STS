@@ -147,6 +147,7 @@ class ClientConnect extends Thread
                 else if(inputText.equals("HELP"))
                 {
                     out.println("Commands:");
+                    out.println("HELO: - Prints the local and remote socket addresses.");
                     out.println("REGI: - Allows authentication with the system.");
                     out.println("BUY: - Allows the purchasing of shares.");
                     out.println("SELL: - Allows the selling of shares.");
