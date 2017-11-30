@@ -71,14 +71,9 @@ class ClientConnect extends Thread
                     out.println("");
                     isRegistered = mySMRef.registerUser(Integer.parseInt(ID));
                 }
-                else if(inputText.equals("DISP"))
+                else if(inputText.startsWith("DISP"))
                 {   // Display Stock Market
-
                     tokens = inputText.split(":");
-                    out.println("DEBUG: You entered: DISP");
-                    System.out.println("DEBUG: DISP");
-                    System.out.println("DEBUG: Tokens is: " + tokens.length + " in size -- Value of [1] is: " + tokens[1]);
-
                     if(mySMRef.checkID(Integer.parseInt(tokens[1])))
                     {
                         String [][] aStock = mySMRef.getStockMarketState();
@@ -89,8 +84,6 @@ class ClientConnect extends Thread
                         }
                         System.out.println("TIME:" + sdf.format(cal.getTime()) );
                         out.println("TIME:" + sdf.format(cal.getTime()) );
-                        out.println("END:EOF");
-                        out.println("");
                     }
                     else
                     {
@@ -99,35 +92,35 @@ class ClientConnect extends Thread
                         out.println("");
                     }
                 }
-                else if(inputText.startsWith("BUY"))
-                {
-                    tokens = inputText.split(":");
-                    
-                    if(mySMRef.checkID(Integer.parseInt(tokens[3])))
-                    {
-                        out.println(mySMRef.buyShares(tokens));
-                    }
-                    else
-                    {
-                        out.println("ERR:Not Registered");
-                    }
-                    out.println("");
-                }
-                else if(inputText.startsWith("SELL"))
-                {
-                    tokens = inputText.split(":");
+				else if(inputText.startsWith("BUY"))
+				{
+				 tokens = inputText.split(":");
 
-                    if(mySMRef.checkID(Integer.parseInt(tokens[3])))
-                    {
-                        out.println(mySMRef.sellShares(tokens));
-
-                    }
-                    else
-                    {
-                        out.println("ERR:Not Registered");
-                    }
-                    out.println("");
-                }
+				 if(mySMRef.checkID(Integer.parseInt(tokens[3])) == true)
+				 {
+				 String tempStr = mySMRef.buyShares(tokens);
+				 out.println(tempStr);
+				 }
+				 else
+				 {
+				 out.println("ERR:Not Registered");
+				 }
+				 out.println("");
+				}
+				else if(inputText.startsWith("SELL"))
+				{
+				 tokens = inputText.split(":");
+				 if(mySMRef.checkID(Integer.parseInt(tokens[3])) == true)
+				 {
+				 String tempStr = mySMRef.sellShares(tokens);
+				 out.println(tempStr);
+				 }
+				 else
+				 {
+				 out.println("ERR:Not Registered");
+				 }
+				 out.println("");
+				}
                 else if(inputText.startsWith("CASH"))
                 {
                     tokens = inputText.split(":");
@@ -145,17 +138,16 @@ class ClientConnect extends Thread
 
                 }
                 else if(inputText.equals("HELP"))
-                {
-                    out.println("Commands:");
-                    out.println("HELO: - Prints the local and remote socket addresses.");
-                    out.println("REGI: - Allows authentication with the system.");
-                    out.println("BUY: - Allows the purchasing of shares.");
-                    out.println("SELL: - Allows the selling of shares.");
-                    out.println("EXIT: - Exit the system (lose all shares and funds).");
-                    out.println("DISP: - Display current Stock market values.");
-                    out.println("CASH: - Display your remaining cash balance (not including shares owned).");
-                    out.println("");
-                }
+				{
+				 out.println("Commands:");
+				 out.println("REGI: - Allows authentication with the system.");
+				 out.println("BUY: - Allows the purchasing of shares.");
+				 out.println("SELL: - Allows the selling of shares.");
+				 out.println("EXIT: - Exit the system (lose all shares and funds).");
+				 out.println("DISP: - Display current Stock market values.");
+				 out.println("CASH: - Display your remaining cash balance (not including shares owned).");
+				 out.println("");
+				}
                 else
                 {
                     System.out.println("DEBUG:"+inputText+":");
