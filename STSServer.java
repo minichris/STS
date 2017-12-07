@@ -7,9 +7,16 @@ public class STSServer
     protected ServerSocket STSSocket = null;
     public StockMarket mySM;
 
-    public STSServer()
-    {
+	//below is the implementation of the singleton for this class
+    private static STSServer instance;
+    private STSServer(){}   
+    public static STSServer getInstance(){
+        if(instance == null){
+            instance = new STSServer();
+        }
+        return instance;
     }
+	//end of implementation of singleton
 
     public void initSTS()
     {
@@ -40,7 +47,7 @@ public class STSServer
 
     public static void main(String [] args)
     {
-        STSServer mySTS = new STSServer();
+        STSServer mySTS = STSServer.getInstance();
         mySTS.initSTS();
         mySTS.listenForClients();
     }
